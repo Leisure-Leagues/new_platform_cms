@@ -6,8 +6,8 @@ const navigation = () => {
       icon: 'mdi:home-variant'
     },
     {
-      title: 'Leagues',
-      path: '/',
+      title: 'Venues',
+      path: '/venues',
       icon: 'mdi:table-of-contents'
     },
     {

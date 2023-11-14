@@ -18,6 +18,8 @@ import Customizer from 'src/@core/components/customizer'
 import Navigation from './components/vertical/navigation'
 import Footer from './components/shared-components/footer'
 import ScrollToTop from 'src/@core/components/scroll-to-top'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
 const VerticalLayoutWrapper = styled('div')({
   height: '100%',
@@ -62,61 +64,63 @@ const VerticalLayout = props => {
 
   return (
     <>
-      <VerticalLayoutWrapper className='layout-wrapper'>
-        {/* Navigation Menu */}
-        {navHidden && !(navHidden && settings.lastLayout === 'horizontal') ? null : (
-          <Navigation
-            navWidth={navWidth}
-            navVisible={navVisible}
-            setNavVisible={setNavVisible}
-            collapsedNavWidth={collapsedNavWidth}
-            toggleNavVisibility={toggleNavVisibility}
-            navigationBorderWidth={navigationBorderWidth}
-            navMenuContent={verticalLayoutProps.navMenu.content}
-            navMenuBranding={verticalLayoutProps.navMenu.branding}
-            menuLockedIcon={verticalLayoutProps.navMenu.lockedIcon}
-            verticalNavItems={verticalLayoutProps.navMenu.navItems}
-            navMenuProps={verticalLayoutProps.navMenu.componentProps}
-            menuUnlockedIcon={verticalLayoutProps.navMenu.unlockedIcon}
-            afterNavMenuContent={verticalLayoutProps.navMenu.afterContent}
-            beforeNavMenuContent={verticalLayoutProps.navMenu.beforeContent}
-            {...props}
-          />
-        )}
-        <MainContentWrapper
-          className='layout-content-wrapper'
-          sx={{ ...(contentHeightFixed && { maxHeight: '100vh' }) }}
-        >
-          {/* AppBar Component */}
-          <AppBar
-            toggleNavVisibility={toggleNavVisibility}
-            appBarContent={verticalLayoutProps.appBar?.content}
-            appBarProps={verticalLayoutProps.appBar?.componentProps}
-            {...props}
-          />
-
-          {/* Content */}
-          <ContentWrapper
-            className='layout-page-content'
-            sx={{
-              ...(contentHeightFixed && {
-                overflow: 'hidden',
-                '& > :first-of-type': { height: '100%' }
-              }),
-              ...(contentWidth === 'boxed' && {
-                mx: 'auto',
-                '@media (min-width:1440px)': { maxWidth: 1440 },
-                '@media (min-width:1200px)': { maxWidth: '100%' }
-              })
-            }}
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <VerticalLayoutWrapper className='layout-wrapper'>
+          {/* Navigation Menu */}
+          {navHidden && !(navHidden && settings.lastLayout === 'horizontal') ? null : (
+            <Navigation
+              navWidth={navWidth}
+              navVisible={navVisible}
+              setNavVisible={setNavVisible}
+              collapsedNavWidth={collapsedNavWidth}
+              toggleNavVisibility={toggleNavVisibility}
+              navigationBorderWidth={navigationBorderWidth}
+              navMenuContent={verticalLayoutProps.navMenu.content}
+              navMenuBranding={verticalLayoutProps.navMenu.branding}
+              menuLockedIcon={verticalLayoutProps.navMenu.lockedIcon}
+              verticalNavItems={verticalLayoutProps.navMenu.navItems}
+              navMenuProps={verticalLayoutProps.navMenu.componentProps}
+              menuUnlockedIcon={verticalLayoutProps.navMenu.unlockedIcon}
+              afterNavMenuContent={verticalLayoutProps.navMenu.afterContent}
+              beforeNavMenuContent={verticalLayoutProps.navMenu.beforeContent}
+              {...props}
+            />
+          )}
+          <MainContentWrapper
+            className='layout-content-wrapper'
+            sx={{ ...(contentHeightFixed && { maxHeight: '100vh' }) }}
           >
-            {children}
-          </ContentWrapper>
+            {/* AppBar Component */}
+            <AppBar
+              toggleNavVisibility={toggleNavVisibility}
+              appBarContent={verticalLayoutProps.appBar?.content}
+              appBarProps={verticalLayoutProps.appBar?.componentProps}
+              {...props}
+            />
 
-          {/* Footer Component */}
-          <Footer footerStyles={footerProps?.sx} footerContent={footerProps?.content} {...props} />
-        </MainContentWrapper>
-      </VerticalLayoutWrapper>
+            {/* Content */}
+            <ContentWrapper
+              className='layout-page-content'
+              sx={{
+                ...(contentHeightFixed && {
+                  overflow: 'hidden',
+                  '& > :first-of-type': { height: '100%' }
+                }),
+                ...(contentWidth === 'boxed' && {
+                  mx: 'auto',
+                  '@media (min-width:1440px)': { maxWidth: 1440 },
+                  '@media (min-width:1200px)': { maxWidth: '100%' }
+                })
+              }}
+            >
+              {children}
+            </ContentWrapper>
+
+            {/* Footer Component */}
+            <Footer footerStyles={footerProps?.sx} footerContent={footerProps?.content} {...props} />
+          </MainContentWrapper>
+        </VerticalLayoutWrapper>
+      </LocalizationProvider>
 
       {/* Customizer */}
       {disableCustomizer || hidden ? null : <Customizer />}
