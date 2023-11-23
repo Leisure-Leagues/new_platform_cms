@@ -10,7 +10,6 @@ const AuthGuard = props => {
   const { children, fallback } = props
 
   const router = useRouter()
-  const auth = useAuth()
 
   useEffect(() => {
     if (!window.localStorage.getItem('userData')) {

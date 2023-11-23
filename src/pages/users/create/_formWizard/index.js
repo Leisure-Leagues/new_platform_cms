@@ -16,13 +16,13 @@ import CardContent from '@mui/material/CardContent'
 import Icon from 'src/@core/components/icon'
 
 // ** Custom Components Imports
-import StepperCustomDot from 'src/views/forms/form-wizard/StepperCustomDot'
+import StepperCustomDot from './StepperCustomDot'
 
 // ** Step Components
-import StepDealType from 'src/views/pages/wizard-examples/create-deal/StepDealType'
-import StepReview from 'src/views/pages/wizard-examples/create-deal/StepReview'
-import StepDealUsage from 'src/views/pages/wizard-examples/create-deal/StepDealUsage'
-import StepDealDetails from 'src/views/pages/wizard-examples/create-deal/StepDealDetails'
+import AccountType from './AccountType'
+import StepReview from './StepReview'
+import StepDealUsage from './StepDealUsage'
+import StepDealDetails from './StepDealDetails'
 
 // ** Styled Components
 import StepperWrapper from 'src/@core/styles/mui/stepper'
@@ -87,7 +87,7 @@ const CreateDealWizard = () => {
   const getStepContent = step => {
     switch (step) {
       case 0:
-        return <StepDealType />
+        return <AccountType />
       case 1:
         return <StepDealDetails />
       case 2:

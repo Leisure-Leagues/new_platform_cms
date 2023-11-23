@@ -37,6 +37,7 @@ const Home = () => {
       icon: <Icon icon='mdi:percent' />
     }
   ]
+
   const fortnightSalesData = [
     {
       stats: '£17,720',
@@ -101,6 +102,7 @@ const Home = () => {
     } else {
       const data = MonthlySalesData
     }
+
     return salesData.map((item, index) => (
       <Grid item xs={12} sm={3} key={index}>
         <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
