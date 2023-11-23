@@ -7,82 +7,60 @@ import { useRouter } from 'next/router'
 // ** Axios
 import axios from 'axios'
 
-// ** Config
-import authConfig from 'src/configs/auth'
-
 // ** Defaults
 const defaultProvider = {
   user: null,
   loading: true,
   setUser: () => null,
   setLoading: () => Boolean,
-  login: () => Promise.resolve(),
-  logout: () => Promise.resolve()
+  logout: () => Promise.resolve(),
+  requests: () => Promise.resolve()
 }
 const AuthContext = createContext(defaultProvider)
 
 const AuthProvider = ({ children }) => {
+  // Create the NextJS router used for redirecting
+  const router = useRouter()
+
   // ** States
   const [user, setUser] = useState(defaultProvider.user)
   const [loading, setLoading] = useState(defaultProvider.loading)
 
-  // ** Hooks
-  const router = useRouter()
+  //Once the page is loaded, retrieve the token from localstorage and create AXIOS instance to be used across the site. The baseURL for backend requests is changed depending on the site the user is on.
+  let token = null
+
+  if (typeof window !== 'undefined') {
+    token = window.localStorage.getItem('storedToken')
+  }
+
+  const httpRequest = axios.create({
+    baseURL: 'https://beta.5aside.co.uk/',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  //This useEffect runs across all pages and is used to verify that the user is logged in. If they are, proceed with the request otherwise they are directed back to the login page.
   useEffect(() => {
     const initAuth = async () => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+      setLoading(true)
+      const storedToken = window.localStorage.getItem('storedToken')
       if (storedToken) {
-        setLoading(true)
-        await axios
-          .get(authConfig.meEndpoint, {
-            headers: {
-              Authorization: storedToken
-            }
-          })
-          .then(async response => {
-            setLoading(false)
-            setUser({ ...response.data.userData })
-          })
-          .catch(() => {
-            localStorage.removeItem('userData')
-            localStorage.removeItem('refreshToken')
-            localStorage.removeItem('accessToken')
-            setUser(null)
-            setLoading(false)
-            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
-              router.replace('/login')
-            }
-          })
+        setUser(window.localStorage.getItem('userData'))
+        setLoading(false)
       } else {
+        router.push('/login')
         setLoading(false)
       }
     }
     initAuth()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [router.route])
 
-  const handleLogin = (params, errorCallback) => {
-    axios
-      .post(authConfig.loginEndpoint, params)
-      .then(async response => {
-        params.rememberMe
-          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)
-          : null
-        const returnUrl = router.query.returnUrl
-        setUser({ ...response.data.userData })
-        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
-        const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
-        router.replace(redirectURL)
-      })
-      .catch(err => {
-        if (errorCallback) errorCallback(err)
-      })
-  }
-
+  //Log the user out of by removing all of the session information and direct them to the login page
   const handleLogout = () => {
     setUser(null)
     window.localStorage.removeItem('userData')
-    window.localStorage.removeItem(authConfig.storageTokenKeyName)
+    window.localStorage.removeItem('storedToken')
     router.push('/login')
   }
 
@@ -91,8 +69,8 @@ const AuthProvider = ({ children }) => {
     loading,
     setUser,
     setLoading,
-    login: handleLogin,
-    logout: handleLogout
+    logout: handleLogout,
+    requests: httpRequest
   }
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>

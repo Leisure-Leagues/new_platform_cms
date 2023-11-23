@@ -6,16 +6,10 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Select from '@mui/material/Select'
 import { useState, useCallback, useEffect } from 'react'
-import MenuItem from '@mui/material/MenuItem'
-import Divider from '@mui/material/Divider'
-import { DataGrid, gridClasses } from '@mui/x-data-grid'
-import CustomChip from 'src/@core/components/mui/chip'
+import { DataGrid } from '@mui/x-data-grid'
 import TextField from '@mui/material/TextField'
 import { useRouter } from 'next/router'
-import { alpha, styled } from '@mui/material/styles'
 
 const Users = () => {
   const router = useRouter()
@@ -23,8 +17,6 @@ const Users = () => {
     getUsers()
   }, [])
 
-  const [role, setRole] = useState('')
-  const [plan, setPlan] = useState('')
   const [value, setValue] = useState('')
   const [userData, setUserData] = useState('')
 

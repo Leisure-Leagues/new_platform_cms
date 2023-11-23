@@ -6,7 +6,6 @@ import MuiListSubheader from '@mui/material/ListSubheader'
 
 // ** Custom Components Imports
 import Translations from 'src/layouts/components/Translations'
-import CanViewNavSectionTitle from 'src/layouts/components/acl/CanViewNavSectionTitle'
 
 // ** Styled Components
 const ListSubheader = styled(props => <MuiListSubheader component='li' {...props} />)(({ theme }) => ({
@@ -34,45 +33,43 @@ const VerticalNavSectionTitle = props => {
   const { navCollapsed } = settings
 
   return (
-    <CanViewNavSectionTitle navTitle={item}>
-      <ListSubheader
-        className='nav-section-title'
+    <ListSubheader
+      className='nav-section-title'
+      sx={{
+        ...(navCollapsed && !navHover
+          ? {
+              py: 3.5,
+              pr: (collapsedNavWidth - navigationBorderWidth - 24) / 8 - 1,
+              pl: (collapsedNavWidth - navigationBorderWidth - 24) / 8 + 0.25
+            }
+          : { px: 0, py: 1.75 })
+      }}
+    >
+      <Divider
+        textAlign='left'
         sx={{
+          m: '0 !important',
+          lineHeight: 'normal',
           ...(navCollapsed && !navHover
             ? {
-                py: 3.5,
-                pr: (collapsedNavWidth - navigationBorderWidth - 24) / 8 - 1,
-                pl: (collapsedNavWidth - navigationBorderWidth - 24) / 8 + 0.25
+                width: 22,
+                borderColor: theme => `rgba(${theme.palette.customColors.main}, 0.3)`
               }
-            : { px: 0, py: 1.75 })
+            : {
+                width: '100%',
+                textTransform: 'uppercase',
+                '&:before, &:after': { top: 7, transform: 'none' },
+                '& .MuiDivider-wrapper': { px: 2.5, fontSize: '0.75rem', letterSpacing: '0.21px' }
+              })
         }}
       >
-        <Divider
-          textAlign='left'
-          sx={{
-            m: '0 !important',
-            lineHeight: 'normal',
-            ...(navCollapsed && !navHover
-              ? {
-                  width: 22,
-                  borderColor: theme => `rgba(${theme.palette.customColors.main}, 0.3)`
-                }
-              : {
-                  width: '100%',
-                  textTransform: 'uppercase',
-                  '&:before, &:after': { top: 7, transform: 'none' },
-                  '& .MuiDivider-wrapper': { px: 2.5, fontSize: '0.75rem', letterSpacing: '0.21px' }
-                })
-          }}
-        >
-          {navCollapsed && !navHover ? null : (
-            <TypographyHeaderText noWrap sx={{ color: 'text.disabled' }}>
-              <Translations text={item.sectionTitle} />
-            </TypographyHeaderText>
-          )}
-        </Divider>
-      </ListSubheader>
-    </CanViewNavSectionTitle>
+        {navCollapsed && !navHover ? null : (
+          <TypographyHeaderText noWrap sx={{ color: 'text.disabled' }}>
+            <Translations text={item.sectionTitle} />
+          </TypographyHeaderText>
+        )}
+      </Divider>
+    </ListSubheader>
   )
 }
 

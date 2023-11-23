@@ -1,5 +1,7 @@
+'use client'
+
 // ** React Imports
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 
 // ** Next Import
 import { useRouter } from 'next/router'
@@ -74,6 +76,12 @@ const UserDropdown = props => {
     handleDropdownClose()
   }
 
+  useEffect(() => {
+    setUserDetails(JSON.parse(window.localStorage.getItem('userData')))
+  }, [])
+
+  const [userDetails, setUserDetails] = useState(null)
+
   return (
     <Fragment>
       <Badge
@@ -118,7 +126,9 @@ const UserDropdown = props => {
               />
             </Badge>
             <Box sx={{ display: 'flex', ml: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
-              <Typography sx={{ fontWeight: 600 }}>Daniel Earp</Typography>
+              <Typography sx={{ fontWeight: 600 }}>
+                {userDetails !== null && `${userDetails.first_name} ${userDetails.last_name} `}
+              </Typography>
               <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
                 Area Manager
               </Typography>
