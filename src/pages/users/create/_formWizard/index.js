@@ -21,8 +21,8 @@ import StepperCustomDot from './StepperCustomDot'
 // ** Step Components
 import AccountType from './AccountType'
 import StepReview from './StepReview'
-import StepDealUsage from './StepDealUsage'
-import StepDealDetails from './StepDealDetails'
+import StepDealUsage from './AccountPermissions'
+import StepDealDetails from './AccountDetails'
 
 // ** Styled Components
 import StepperWrapper from 'src/@core/styles/mui/stepper'
@@ -156,12 +156,11 @@ const CreateDealWizard = () => {
           </Stepper>
         </StepperWrapper>
       </StepperHeaderContainer>
-      <div>
-        <CardContent>
-          {renderContent()}
-          {renderFooter()}
-        </CardContent>
-      </div>
+
+      <CardContent>
+        {renderContent()}
+        {renderFooter()}
+      </CardContent>
     </Card>
   )
 }

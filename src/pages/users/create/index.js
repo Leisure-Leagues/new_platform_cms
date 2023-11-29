@@ -22,11 +22,14 @@ import StepperCustomDot from './_formWizard/StepperCustomDot'
 
 import AccountType from './_formWizard/AccountType'
 import StepReview from './_formWizard/StepReview'
-import StepDealUsage from './_formWizard/StepDealUsage'
-import StepDealDetails from './_formWizard/StepDealDetails'
+import AccountPermissions from './_formWizard/AccountPermissions'
+import AccountDetails from './_formWizard/AccountDetails'
 
 // ** Styled Components
 import StepperWrapper from 'src/@core/styles/mui/stepper'
+
+import { useAuth } from 'src/hooks/useAuth'
+import { useForm } from 'react-hook-form'
 
 const steps = [
   {
@@ -71,8 +74,20 @@ const StepperHeaderContainer = styled(CardContent)(({ theme }) => ({
 }))
 
 const CreateDealWizard = () => {
+  const auth = useAuth()
+  const { register, handleSubmit } = useForm()
+
   // ** States
   const [activeStep, setActiveStep] = useState(0)
+  const [submitSuccess, setSubmitSuccess] = useState(null)
+
+  const onSubmit = async data => {
+    const response = await auth.requests.post('/api/auth/register', data)
+
+    if (response.data.status === true) {
+      setSubmitSuccess(true)
+    }
+  }
 
   // Handle Stepper
   const handleNext = () => {
@@ -90,11 +105,11 @@ const CreateDealWizard = () => {
       case 0:
         return <AccountType />
       case 1:
-        return <StepDealDetails />
+        return <AccountDetails registerController={register} />
       case 2:
-        return <StepDealUsage />
+        return <AccountPermissions />
       case 3:
-        return <StepReview />
+        return <StepReview submitMessage={submitSuccess} />
       default:
         return null
     }
@@ -106,7 +121,6 @@ const CreateDealWizard = () => {
 
   const renderFooter = () => {
     const stepCondition = activeStep === steps.length - 1
-
     return (
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
         <Button
@@ -118,52 +132,69 @@ const CreateDealWizard = () => {
         >
           Previous
         </Button>
-        <Button
-          variant='contained'
-          color={stepCondition ? 'success' : 'primary'}
-          {...(!stepCondition ? { endIcon: <Icon icon='mdi:arrow-right' /> } : {})}
-          onClick={() => (stepCondition ? alert('Submitted..!!') : handleNext())}
-        >
-          {stepCondition ? 'Submit' : 'Next'}
-        </Button>
+        {stepCondition ? (
+          <Button
+            onClick={() => {
+              handleSubmit(onSubmit)()
+            }}
+            type='button'
+            variant='contained'
+            color={stepCondition ? 'success' : 'primary'}
+            {...(!stepCondition ? { endIcon: <Icon icon='mdi:arrow-right' /> } : {})}
+          >
+            Submit
+          </Button>
+        ) : (
+          <Button
+            type='button'
+            variant='contained'
+            color={stepCondition ? 'success' : 'primary'}
+            {...(!stepCondition ? { endIcon: <Icon icon='mdi:arrow-right' /> } : {})}
+            onClick={() => handleNext()}
+          >
+            Next
+          </Button>
+        )}
       </Box>
     )
   }
 
   return (
-    <Card sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>
-      <StepperHeaderContainer>
-        <StepperWrapper sx={{ height: '100%', '& .MuiStepLabel-label': { cursor: 'pointer' } }}>
-          <Stepper connector={<></>} activeStep={activeStep} orientation='vertical'>
-            {steps.map((step, index) => {
-              return (
-                <Step
-                  key={index}
-                  onClick={() => setActiveStep(index)}
-                  sx={{ '&.Mui-completed + svg': { color: 'primary.main' } }}
-                >
-                  <StepLabel StepIconComponent={StepperCustomDot}>
-                    <div className='step-label'>
-                      <Typography className='step-number'>{`0${index + 1}`}</Typography>
-                      <div>
-                        <Typography className='step-title'>{step.title}</Typography>
-                        <Typography className='step-subtitle'>{step.subtitle}</Typography>
+    <form>
+      <Card sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>
+        <StepperHeaderContainer>
+          <StepperWrapper sx={{ height: '100%', '& .MuiStepLabel-label': { cursor: 'pointer' } }}>
+            <Stepper connector={<></>} activeStep={activeStep} orientation='vertical'>
+              {steps.map((step, index) => {
+                return (
+                  <Step
+                    key={index}
+                    onClick={() => setActiveStep(index)}
+                    sx={{ '&.Mui-completed + svg': { color: 'primary.main' } }}
+                  >
+                    <StepLabel StepIconComponent={StepperCustomDot}>
+                      <div className='step-label'>
+                        <Typography className='step-number'>{`0${index + 1}`}</Typography>
+                        <div>
+                          <Typography className='step-title'>{step.title}</Typography>
+                          <Typography className='step-subtitle'>{step.subtitle}</Typography>
+                        </div>
                       </div>
-                    </div>
-                  </StepLabel>
-                </Step>
-              )
-            })}
-          </Stepper>
-        </StepperWrapper>
-      </StepperHeaderContainer>
-      <div>
-        <CardContent>
-          {renderContent()}
-          {renderFooter()}
-        </CardContent>
-      </div>
-    </Card>
+                    </StepLabel>
+                  </Step>
+                )
+              })}
+            </Stepper>
+          </StepperWrapper>
+        </StepperHeaderContainer>
+        <div style={{ flex: 1 }}>
+          <CardContent>
+            {renderContent()}
+            {renderFooter()}
+          </CardContent>
+        </div>
+      </Card>
+    </form>
   )
 }
 

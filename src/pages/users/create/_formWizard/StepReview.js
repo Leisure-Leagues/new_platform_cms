@@ -13,14 +13,14 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
-const ReviewComplete = () => {
+const ReviewComplete = ({ submitMessage }) => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12} lg={6} xl={7}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant='h5' sx={{ mb: 4 }}>
-              Almost done! 🚀
+              {submitMessage && 'Account created'}
             </Typography>
             <Typography sx={{ color: 'text.secondary' }}>
               Confirm your deal details information and submit to create it.
@@ -98,27 +98,6 @@ const ReviewComplete = () => {
             <FormControlLabel control={<Switch />} label='I have confirmed the deal details.' />
           </Grid>
         </Grid>
-      </Grid>
-      <Grid
-        item
-        lg={6}
-        xl={5}
-        xs={12}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', '& img': { maxWidth: '100%' } }}
-      >
-        <Box
-          sx={{
-            pt: 4.5,
-            px: 4.5,
-            width: '100%',
-            display: 'flex',
-            borderRadius: 1,
-            justifyContent: 'center',
-            border: theme => `1px solid ${theme.palette.divider}`
-          }}
-        >
-          <img height={300} alt='review-illustration' src='/images/pages/create-deal-review-complete.png' />
-        </Box>
       </Grid>
     </Grid>
   )
