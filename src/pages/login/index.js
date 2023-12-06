@@ -1,5 +1,3 @@
-import jwt from 'jsonwebtoken'
-
 // ** MUI Components
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
@@ -104,8 +102,6 @@ const LoginPage = () => {
         message: response.data.message
       })
     }
-
-    console.log(response)
   }
 
   return (

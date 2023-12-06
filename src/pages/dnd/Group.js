@@ -1,8 +1,16 @@
+'use client'
+
 import React from 'react'
 import { useDrop } from 'react-dnd'
 import Grid from '@mui/material/Grid'
 import Team from './Team'
 import { useState, useEffect } from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
 
 function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, groupIndex }) {
   const [teamsInGroup, setTeamsInGroup] = useState(group.teams)
@@ -30,26 +38,58 @@ function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, 
     const removedTeam = teamsInGroup.filter(team => id === team.id)
     addTeamToList(removedTeam)
     const filterTeam = teamsInGroup.filter(team => id !== team.id)
+    setTeamsInGroup(filterTeam)
     updateGroups(groupIndex, filterTeam)
   }
 
   return (
-    <>
-      <Grid
-        ref={drop}
-        item
-        xs={5}
-        style={{ border: '1px solid black', marginTop: '50px', minHeight: '150px', marginRight: '50px' }}
-      >
-        <Grid item xs={12}>
-          Group {group.name}
-        </Grid>
+    <Grid item xs={6}>
+      <Card ref={drop}>
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography
+              sx={{
+                fontWeight: '500',
+                mb: 5,
+                textTransform: 'uppercase',
+                fontSize: '0.8rem',
+                display: 'inline'
+              }}
+            >
+              Teams: {group.teams.length}
+            </Typography>
 
-        {group.teams.map((team, index) => (
-          <Team key={team.id} team={team} removeTeam={removeTeam} grouped={true} groupInfo={group} index={index} />
-        ))}
-      </Grid>
-    </>
+            <Typography
+              sx={{
+                fontWeight: '900',
+                mb: 5,
+                textTransform: 'uppercase',
+                fontSize: '1rem',
+                display: 'inline'
+              }}
+            >
+              Group {group.name}
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: '500',
+                mb: 5,
+                textTransform: 'uppercase',
+                fontSize: '0.8rem',
+                display: 'inline'
+              }}
+            >
+              Matches: {(group.teams.length * (group.teams.length - 1)) / 2}
+            </Typography>
+          </Box>
+
+          {group.teams.map((team, index) => (
+            <Team key={team.id} team={team} removeTeam={removeTeam} grouped={true} groupInfo={group} index={index} />
+          ))}
+        </CardContent>
+      </Card>
+    </Grid>
   )
 }
 
