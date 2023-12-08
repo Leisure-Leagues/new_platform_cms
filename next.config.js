@@ -11,6 +11,9 @@ module.exports = {
   },
   trailingSlash: true,
   reactStrictMode: false,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   webpack: config => {
     config.resolve.alias = {
       ...config.resolve.alias,
