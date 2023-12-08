@@ -8,11 +8,12 @@ import { useState, useEffect } from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 
 function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, groupIndex }) {
+  if (!teams) {
+    return null
+  }
   const [teamsInGroup, setTeamsInGroup] = useState(group.teams)
 
   useEffect(() => {

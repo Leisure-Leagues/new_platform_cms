@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import Team from './Team'
 import Grid from '@mui/material/Grid'
@@ -13,25 +15,45 @@ export default function index() {
       groupID: '1',
       name: 'A',
       slots: 4,
-      teams: []
+      teams: [
+        {
+          id: '1',
+          team: 'England'
+        }
+      ]
     },
     {
       groupID: '2',
       name: 'B',
       slots: 4,
-      teams: []
+      teams: [
+        {
+          id: '1',
+          team: 'England'
+        }
+      ]
     },
     {
       groupID: '3',
       name: 'C',
       slots: 4,
-      teams: []
+      teams: [
+        {
+          id: '1',
+          team: 'England'
+        }
+      ]
     },
     {
       groupID: '4',
       name: 'D',
       slots: 4,
-      teams: []
+      teams: [
+        {
+          id: '1',
+          team: 'England'
+        }
+      ]
     }
   ])
 

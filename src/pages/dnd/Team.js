@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { useDrag } from 'react-dnd'
 import Icon from 'src/@core/components/icon'
@@ -5,6 +7,9 @@ import Chip from '@mui/material/Chip'
 import Alert from '@mui/material/Alert'
 
 export default function Team({ team, removeTeam, grouped, groupInfo, index }) {
+  if (!team) {
+    return null
+  }
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'team',
     item: { id: team.id },
