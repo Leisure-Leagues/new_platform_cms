@@ -9,6 +9,9 @@ import { useState } from 'react'
 import { MenuItem } from '@mui/material'
 
 const AccountDetails = ({ registerController }) => {
+  if (!registerController) {
+    return null
+  }
   const [lookup, setLookup] = useState(null)
   const [postcode, setPostcode] = useState(null)
   const [selectedAddress, setSelectedAddress] = useState('Choose Address...')

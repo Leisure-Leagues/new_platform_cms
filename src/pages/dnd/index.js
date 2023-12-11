@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import Team from './Team'
 import Grid from '@mui/material/Grid'
