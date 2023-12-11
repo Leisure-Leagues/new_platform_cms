@@ -25,7 +25,6 @@ import themeConfig from 'src/configs/themeConfig'
 
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useAuth } from 'src/hooks/useAuth'
 

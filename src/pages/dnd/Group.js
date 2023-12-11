@@ -10,6 +10,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 
+
 function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, groupIndex }) {
   if (!teams) {
     return null
@@ -81,7 +82,7 @@ function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, 
                 display: 'inline'
               }}
             >
-              Matches: {(group.teams.length * (group.teams.length - 1)) / 2}
+              Matches: {((group.teams.length * (group.teams.length - 1)) / 2) * groupRounds}
             </Typography>
           </Box>
 
