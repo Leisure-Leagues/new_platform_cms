@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDrag } from 'react-dnd'
-import Icon from 'src/@core/components/icon'
 import Chip from '@mui/material/Chip'
 import Alert from '@mui/material/Alert'
 
@@ -17,7 +16,6 @@ export default function Team({ team, removeTeam, grouped, groupInfo, index }) {
     <>
       {!grouped ? (
         <Chip
-          onClick={grouped ? () => removeTeam(team.id) : null}
           ref={drag}
           label={team.team}
           color='primary'
@@ -38,7 +36,7 @@ export default function Team({ team, removeTeam, grouped, groupInfo, index }) {
           ]}
         />
       ) : (
-        <Alert severity='success' sx={{ my: '10px' }}>
+        <Alert severity='success' sx={{ my: '10px' }} onClick={grouped ? () => removeTeam(team.id) : null}>
           {team.team}
         </Alert>
       )}

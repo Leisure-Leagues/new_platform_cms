@@ -12,7 +12,7 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 
-function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, groupIndex }) {
+function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, groupIndex, groupRounds }) {
   const [teamsInGroup, setTeamsInGroup] = useState(group.teams)
 
   useEffect(() => {
@@ -80,7 +80,7 @@ function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, 
                 display: 'inline'
               }}
             >
-              Matches: {(group.teams.length * (group.teams.length - 1)) / 2}
+              Matches: {((group.teams.length * (group.teams.length - 1)) / 2) * groupRounds}
             </Typography>
           </Box>
 
