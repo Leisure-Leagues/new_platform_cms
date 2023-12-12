@@ -10,8 +10,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 
-
-function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, groupIndex }) {
+function Group({ teams, group, removeTeamFromList, addTeamToList, updateGroups, groupIndex, groupRounds }) {
   if (!teams) {
     return null
   }

@@ -7,7 +7,7 @@ const path = require('path')
 
 module.exports = {
   images: {
-    domains: ['d393ynejnklmr1.cloudfront.net', 'd1y4qtzhx2t86s.cloudfront.net']
+    domains: ['d393ynejnklmr1.cloudfront.net', 'd1y4qtzhx2t86s.cloudfront.net', 'upload.wikimedia.org']
   },
   trailingSlash: true,
   reactStrictMode: false,
