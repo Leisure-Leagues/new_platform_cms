@@ -15,7 +15,7 @@ import Divider from '@mui/material/Divider'
 
 export default function index() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [groupRounds, setGroupRounds] = useState(2)
+  const [groupRounds, setGroupRounds] = useState(1)
   const [groupRoundsOptions, setGroupRoundsOptions] = useState([1, 2, 3, 4])
   const [groups, setGroups] = useState([
     {
