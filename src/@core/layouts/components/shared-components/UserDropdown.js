@@ -15,6 +15,7 @@ import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
+import Link from 'next/link'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -63,7 +64,6 @@ const UserDropdown = props => {
     display: 'flex',
     alignItems: 'center',
     color: 'text.primary',
-    textDecoration: 'none',
     '& svg': {
       mr: 2,
       fontSize: '1.375rem',
@@ -95,7 +95,7 @@ const UserDropdown = props => {
         }}
       >
         <Avatar
-          alt='John Doe'
+          alt={userDetails.first_name}
           onClick={handleDropdownOpen}
           sx={{ width: 40, height: 40 }}
           src='https://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png'
@@ -120,7 +120,7 @@ const UserDropdown = props => {
               }}
             >
               <Avatar
-                alt='John Doe'
+                alt={userDetails.first_name}
                 src='https://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png'
                 sx={{ width: '2.5rem', height: '2.5rem' }}
               />
@@ -129,18 +129,17 @@ const UserDropdown = props => {
               <Typography sx={{ fontWeight: 600 }}>
                 {userDetails !== null && `${userDetails.first_name} ${userDetails.last_name} `}
               </Typography>
-              <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
-                Area Manager
-              </Typography>
             </Box>
           </Box>
         </Box>
         <Divider sx={{ mt: '0 !important' }} />
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
-            <Icon icon='mdi:account-outline' />
-            Profile
-          </Box>
+          <Link href='/profile' style={{ textDecoration: 'none' }}>
+            <Box sx={styles}>
+              <Icon icon='mdi:account-outline' />
+              Profile
+            </Box>
+          </Link>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
           <Box sx={styles}>
@@ -149,19 +148,6 @@ const UserDropdown = props => {
           </Box>
         </MenuItem>
 
-        <Divider />
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
-            <Icon icon='mdi:cog-outline' />
-            Settings
-          </Box>
-        </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
-            <Icon icon='mdi:help-circle-outline' />
-            FAQ
-          </Box>
-        </MenuItem>
         <Divider />
         <MenuItem
           onClick={handleLogout}
