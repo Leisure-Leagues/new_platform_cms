@@ -49,8 +49,8 @@ const AuthProvider = ({ children }) => {
         setUser(window.localStorage.getItem('userData'))
         setLoading(false)
       } else {
-        router.push('/login')
         setLoading(false)
+        router.push('/login')
       }
     }
     initAuth()
@@ -58,7 +58,6 @@ const AuthProvider = ({ children }) => {
 
   //Log the user out of by removing all of the session information and direct them to the login page
   const handleLogout = () => {
-    setUser(null)
     window.localStorage.removeItem('userData')
     window.localStorage.removeItem('storedToken')
     router.push('/login')

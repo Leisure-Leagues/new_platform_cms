@@ -103,7 +103,6 @@ const navigation = () => {
       ]
     },
     {
-      path: '#',
       title: 'Site Settings',
       icon: 'mdi:cogs',
       children: [
@@ -113,7 +112,7 @@ const navigation = () => {
         },
         {
           title: 'Content Pages',
-          path: '/dnd'
+          path: '#'
         },
         {
           title: 'Translations',

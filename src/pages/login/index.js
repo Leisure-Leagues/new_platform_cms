@@ -94,7 +94,7 @@ const LoginPage = () => {
       auth.setUser({ first_name: 'daniel', surname: 'earp', role: 'admin' })
       window.localStorage.setItem('userData', JSON.stringify(response.data.user))
       window.localStorage.setItem('storedToken', response.data.token)
-      router.replace('/home')
+      router.replace('/')
     } else {
       setError('email', {
         type: 'manual',
