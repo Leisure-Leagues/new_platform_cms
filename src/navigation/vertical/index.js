@@ -23,6 +23,10 @@ const navigation = () => {
         {
           title: 'Gallery & Videos',
           path: '#'
+        },
+        {
+          title: 'Gallery & Videos',
+          path: '#'
         }
       ]
     },
