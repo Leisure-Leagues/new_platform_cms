@@ -82,7 +82,6 @@ const navigation = () => {
         }
       ]
     },
-
     {
       path: '#',
       title: 'Emails',
@@ -117,18 +116,9 @@ const navigation = () => {
         {
           title: 'Translations',
           path: '#'
-        },
-        {
-          title: 'Fixtures',
-          path: '#'
-        },
-        {
-          title: 'Gallery & Videos',
-          path: '#'
         }
       ]
     },
-
     {
       path: '#',
       title: 'Support Center',
