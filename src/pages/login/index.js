@@ -148,7 +148,9 @@ const LoginPage = () => {
             </Box>
             <Box sx={{ mb: 6 }}>
               <TypographyStyled variant='h5'>Welcome to {themeConfig.templateName}!</TypographyStyled>
-              <Typography variant='body2'>Please sign in using your Leisure Leagues CMS account</Typography>
+              <Typography variant='body2'>
+                Please sign in using your Leisure Leagues CMS account. Testing deployment.
+              </Typography>
             </Box>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 4 }}>
