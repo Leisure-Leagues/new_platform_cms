@@ -16,12 +16,12 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Icon from 'src/@core/components/icon'
 
 // ** Demo Components
-import Teams from 'src/pages/tournaments/teams'
-import FixtureHeader from 'src/pages/tournaments/FixtureHeader'
-import TournamentGroups from '../dnd'
-import TournamentTeams from './_pages/teams'
-import TournamentOverview from './_pages/overview'
-import TournamentGallery from './_pages/gallery'
+import TournamentFixtures from './fixtures'
+import TournamentHeader from './TournamentHeader'
+import TournamentGroups from './groups'
+import TournamentTeams from './teams'
+import TournamentGallery from './gallery'
+import TournamentKnockouts from './knockouts'
 
 const TabList = styled(MuiTabList)(({ theme }) => ({
   '& .MuiTabs-indicator': {
@@ -45,7 +45,7 @@ const TabList = styled(MuiTabList)(({ theme }) => ({
 
 const UserProfile = ({ tab, data }) => {
   // ** State
-  const [activeTab, setActiveTab] = useState('lineups')
+  const [activeTab, setActiveTab] = useState('teams')
   const [isLoading, setIsLoading] = useState(true)
   const hideText = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
@@ -66,17 +66,17 @@ const UserProfile = ({ tab, data }) => {
   }, [tab])
 
   const tabContentList = {
-    overview: <TournamentOverview />,
-    lineups: <Teams />,
     teams: <TournamentTeams />,
-    gallery: <TournamentGallery />,
-    groups: <TournamentGroups />
+    groups: <TournamentGroups />,
+    fixtures: <TournamentFixtures />,
+    knockout: <TournamentKnockouts />,
+    gallery: <TournamentGallery />
   }
 
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <FixtureHeader />
+        <TournamentHeader />
       </Grid>
       {activeTab === undefined ? null : (
         <Grid item xs={12}>
@@ -89,15 +89,6 @@ const UserProfile = ({ tab, data }) => {
                   onChange={handleChange}
                   aria-label='customized tabs example'
                 >
-                  <Tab
-                    value='overview'
-                    label={
-                      <Box sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
-                        <Icon fontSize={20} icon='mdi:account-outline' />
-                        {!hideText && 'Overview'}
-                      </Box>
-                    }
-                  />
                   <Tab
                     value='teams'
                     label={
@@ -113,6 +104,24 @@ const UserProfile = ({ tab, data }) => {
                       <Box sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
                         <Icon fontSize={20} icon='mdi:view-grid-outline' />
                         {!hideText && 'Groups'}
+                      </Box>
+                    }
+                  />
+                  <Tab
+                    value='knockout'
+                    label={
+                      <Box sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
+                        <Icon fontSize={20} icon='mdi:account-outline' />
+                        {!hideText && 'Knockouts'}
+                      </Box>
+                    }
+                  />
+                  <Tab
+                    value='fixtures'
+                    label={
+                      <Box sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
+                        <Icon fontSize={20} icon='mdi:lock' />
+                        {!hideText && 'Fixtures'}
                       </Box>
                     }
                   />

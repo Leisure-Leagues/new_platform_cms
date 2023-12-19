@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Icon from 'src/@core/components/icon'
 import Countdown from 'react-countdown'
 
-const FixtureHeader = () => {
+const TournamentHeader = () => {
   const renderer = ({ days, hours, minutes, seconds }) => {
     return (
       <>
@@ -79,4 +79,4 @@ const FixtureHeader = () => {
   )
 }
 
-export default FixtureHeader
+export default TournamentHeader
