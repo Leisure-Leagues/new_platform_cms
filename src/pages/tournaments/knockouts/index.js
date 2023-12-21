@@ -8,8 +8,8 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
 const TournamentKnockouts = () => {
-  const [tournamentTeams, setTournamentTeams] = useState(32)
-  const [groups, setGroups] = useState(3)
+  const [tournamentTeams, setTournamentTeams] = useState(111)
+  const [groups, setGroups] = useState(9)
   const [minTeams, setMinTeams] = useState(null)
   const [maxTeams, setMaxTeams] = useState(null)
   const [knockoutRounds, setKnockoutRounds] = useState(0)
@@ -136,7 +136,7 @@ const TournamentKnockouts = () => {
               <CardContent>
                 <Grid item xs={12}>
                   <Alert severity='info'>
-                    Along with the {numberProgressing[teamsProgressing]} from each group, the next {thirdPlaceTeams}{' '}
+                    Along with the {numberProgressing[teamsProgressing - 1]} from each group, the next {thirdPlaceTeams}{' '}
                     best teams will also qualify to the knockout stage
                   </Alert>
                 </Grid>
