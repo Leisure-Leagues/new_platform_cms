@@ -18,14 +18,6 @@ const TournamentHeader = () => {
 
   return (
     <Card>
-      <CardMedia
-        component='img'
-        alt='profile-header'
-        image='https://www.shutterstock.com/image-vector/vector-image-green-red-gradient-260nw-2165783953.jpg'
-        sx={{
-          height: { xs: 150, md: 250 }
-        }}
-      />
       <CardContent
         sx={{
           pt: 0,

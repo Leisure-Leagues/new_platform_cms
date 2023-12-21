@@ -13,6 +13,8 @@ const TournamentKnockouts = () => {
   const [minTeams, setMinTeams] = useState(null)
   const [maxTeams, setMaxTeams] = useState(null)
   const [knockoutRounds, setKnockoutRounds] = useState(0)
+  const [teamsProgressing, setTeamsProgressing] = useState(null)
+  const [thirdPlaceTeams, setThirdPlaceTeams] = useState(null)
 
   function calculateKnockoutTeams(groups, maxTeams) {
     // Ensure groups and maxTeams are positive integers
@@ -38,11 +40,31 @@ const TournamentKnockouts = () => {
     calculateKnockoutTeams(groups, tournamentTeams)
   }, [])
 
+  useEffect(() => {
+    calculateThirdPlaces()
+  }, [teamsProgressing, knockoutRounds])
+
+  const handleKnockoutTeams = value => {
+    setKnockoutRounds(value)
+  }
+
+  const handleTeamsProgressing = value => {
+    setTeamsProgressing(value)
+  }
+
+  const calculateThirdPlaces = () => {
+    const teamsGoingThrough = groups * teamsProgressing
+    const thirdPlaceTeams = knockoutRounds - teamsGoingThrough
+
+    setThirdPlaceTeams(thirdPlaceTeams)
+  }
+
   const knockoutFormat = [2, 4, 8, 16, 32, 64, 128]
+  const numberProgressing = ['1st', 'Top 2', 'Top 3', 'Top 4']
 
   return (
     <>
-      <Grid container spacing={5} alignItems='stretch'>
+      <Grid container alignItems='stretch' spacing={5} sx={{ mt: 5 }}>
         <Grid item xs={12}>
           <Alert severity='warning'>
             You have a total of {tournamentTeams} teams across {groups} groups. At least 1 team must qualify from each
@@ -66,7 +88,15 @@ const TournamentKnockouts = () => {
               <Grid item sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
                 {knockoutFormat.map((round, index) => {
                   if (round <= maxTeams && round >= minTeams) {
-                    return <Button variant={index === knockoutRounds ? 'outlined' : 'contained'}>{round}</Button>
+                    return (
+                      <Button
+                        key={index}
+                        variant={round === knockoutRounds ? 'contained' : 'outlined'}
+                        onClick={() => handleKnockoutTeams(round)}
+                      >
+                        {round}
+                      </Button>
+                    )
                   }
                 })}
               </Grid>
@@ -84,18 +114,52 @@ const TournamentKnockouts = () => {
                     mb: 4
                   }}
                 >
-                  How many teams will automatically qualify from each group?
+                  Which teams will automatically qualify from each group?
                 </Typography>
               </Grid>
               <Grid item sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                <Button variant='contained'>1</Button>
-                <Button variant='contained'>1</Button>
-                <Button variant='contained'>1</Button>
-                <Button variant='contained'>1</Button>
+                {numberProgressing.map((value, index) => (
+                  <Button
+                    variant={index + 1 === teamsProgressing ? 'contained' : 'outlined'}
+                    onClick={() => handleTeamsProgressing(index + 1)}
+                  >
+                    {value}
+                  </Button>
+                ))}
               </Grid>
             </CardContent>
           </Card>
         </Grid>
+        <Grid item xs={12} md={4}>
+          <Card>
+            {teamsProgressing !== null && knockoutRounds !== null && thirdPlaceTeams > 0 && (
+              <CardContent>
+                <Grid item xs={12}>
+                  <Alert severity='info'>
+                    Along with the {numberProgressing[teamsProgressing]} from each group, the next {thirdPlaceTeams}{' '}
+                    best teams will also qualify to the knockout stage
+                  </Alert>
+                </Grid>
+              </CardContent>
+            )}
+            {teamsProgressing !== null && knockoutRounds !== null && thirdPlaceTeams < 0 && (
+              <CardContent>
+                <Grid item xs={12}>
+                  <Alert severity='error'>
+                    The number of teams progressing from the groups exceed the number of teams in your knockout bracket.
+                  </Alert>
+                </Grid>
+              </CardContent>
+            )}
+          </Card>
+        </Grid>
+        {teamsProgressing !== null && knockoutRounds !== null && thirdPlaceTeams > 0 && (
+          <Grid item xs={12}>
+            <Button variant='contained' fullWidth>
+              Generate Knockout Bracket
+            </Button>
+          </Grid>
+        )}
       </Grid>
     </>
   )

@@ -20,17 +20,15 @@ export default function Team({ team, removeTeam, grouped, groupInfo, index }) {
   return (
     <>
       {!grouped ? (
-        <Chip
+        <Alert
           ref={drag}
-          label={team.team}
-          color='primary'
+          severity='success'
           sx={[
             {
               margin: '15px',
               opacity: isDragging ? '0' : '1',
-              fontWeight: '700',
               cursor: 'pointer',
-              width: '200px'
+              width: '250px'
             },
             !grouped && {
               '&:hover': {
@@ -39,7 +37,11 @@ export default function Team({ team, removeTeam, grouped, groupInfo, index }) {
               }
             }
           ]}
-        />
+          onClick={grouped ? () => removeTeam(team.id) : null}
+          icon={false}
+        >
+          {team.team}
+        </Alert>
       ) : (
         <Alert severity='success' sx={{ my: '10px' }} onClick={grouped ? () => removeTeam(team.id) : null}>
           {team.team}

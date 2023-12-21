@@ -22,6 +22,7 @@ import TournamentGroups from './groups'
 import TournamentTeams from './teams'
 import TournamentGallery from './gallery'
 import TournamentKnockouts from './knockouts'
+import ManageNews from './news'
 
 const TabList = styled(MuiTabList)(({ theme }) => ({
   '& .MuiTabs-indicator': {
@@ -70,18 +71,19 @@ const UserProfile = ({ tab, data }) => {
     groups: <TournamentGroups />,
     fixtures: <TournamentFixtures />,
     knockout: <TournamentKnockouts />,
-    gallery: <TournamentGallery />
+    gallery: <TournamentGallery />,
+    news: <ManageNews />
   }
 
   return (
-    <Grid container spacing={6}>
+    <Grid container alignItems='stretch' spacing={6}>
       <Grid item xs={12}>
         <TournamentHeader />
       </Grid>
       {activeTab === undefined ? null : (
         <Grid item xs={12}>
           <TabContext value={activeTab}>
-            <Grid container spacing={6}>
+            <Grid container alignItems='stretch' spacing={6}>
               <Grid item xs={12}>
                 <TabList
                   variant='scrollable'
@@ -122,6 +124,15 @@ const UserProfile = ({ tab, data }) => {
                       <Box sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
                         <Icon fontSize={20} icon='mdi:lock' />
                         {!hideText && 'Fixtures'}
+                      </Box>
+                    }
+                  />
+                  <Tab
+                    value='news'
+                    label={
+                      <Box sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
+                        <Icon fontSize={20} icon='mdi:newspaper-variant-outline' />
+                        {!hideText && 'News'}
                       </Box>
                     }
                   />

@@ -123,14 +123,14 @@ const ListTournaments = () => {
   }
 
   return (
-    <Grid container spacing={6}>
+    <Grid container alignItems='stretch' spacing={6}>
       {statsHorizontal.map((item, index) => (
         <Grid item xs={12} md={4} sm={6} key={index}>
           <CardStatisticsHorizontal {...item} icon={<Icon icon={item.icon} />} />
         </Grid>
       ))}
 
-      <Grid item xs={12}>
+      <Grid item alignItems='stretch' xs={12}>
         <Card>
           <CardContent>
             <Grid container spacing={6}>

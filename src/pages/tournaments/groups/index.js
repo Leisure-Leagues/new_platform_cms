@@ -12,11 +12,19 @@ import Button from '@mui/material/Button'
 import InputAdornment from '@mui/material/InputAdornment'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import Divider from '@mui/material/Divider'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
 
 export default function index() {
   const [searchTerm, setSearchTerm] = useState('')
   const [groupRounds, setGroupRounds] = useState(1)
   const [groupRoundsOptions, setGroupRoundsOptions] = useState([1, 2, 3, 4])
+  const [firstDecider, setFirstDecider] = useState('10')
+  const [secondDecider, setSecondDecider] = useState('20')
+  const [thirdDecider, setThirdDecider] = useState('30')
+  const [openFirst, setOpenFirst] = useState(false)
+  const [openSecond, setOpenSecond] = useState(false)
+  const [openThird, setOpenThird] = useState(false)
   const [groups, setGroups] = useState([
     {
       groupID: '1',
@@ -27,43 +35,99 @@ export default function index() {
 
   const [teamList, setTeamList] = useState([
     {
-      id: '1',
+      id: 1,
       team: 'England'
     },
     {
-      id: '2',
-      team: 'Spain'
-    },
-    {
-      id: '3',
-      team: 'France'
-    },
-    {
-      id: '4',
-      team: 'Germany'
-    },
-    {
-      id: '5',
-      team: 'Italy'
-    },
-    {
-      id: '6',
-      team: 'Brazil'
-    },
-    {
-      id: '7',
-      team: 'Argentina'
-    },
-    {
-      id: '8',
+      id: 2,
       team: 'Mexico'
     },
     {
-      id: '9',
+      id: 3,
       team: 'United States'
     },
     {
-      id: '10',
+      id: 4,
+      team: 'Canada'
+    },
+    {
+      id: 5,
+      team: 'Guatemala'
+    },
+    {
+      id: 6,
+      team: 'Honduras'
+    },
+    {
+      id: 7,
+      team: 'Nicaragua'
+    },
+    {
+      id: 8,
+      team: 'Panama'
+    },
+    {
+      id: 9,
+      team: 'Costa Rica'
+    },
+    {
+      id: 10,
+      team: 'Haiti'
+    },
+    {
+      id: 11,
+      team: 'Suriname'
+    },
+    {
+      id: 12,
+      team: 'Brasil'
+    },
+    {
+      id: 13,
+      team: 'Argentina'
+    },
+    {
+      id: 14,
+      team: 'Chile'
+    },
+    {
+      id: 15,
+      team: 'Colombia'
+    },
+    {
+      id: 16,
+      team: 'Ecuador'
+    },
+    {
+      id: 17,
+      team: 'Peru'
+    },
+    {
+      id: 18,
+      team: 'Uruguay'
+    },
+    {
+      id: 19,
+      team: 'Marrocco'
+    },
+    {
+      id: 20,
+      team: 'Oman'
+    },
+    {
+      id: 21,
+      team: 'EAU'
+    },
+    {
+      id: 22,
+      team: 'Hungary'
+    },
+    {
+      id: 23,
+      team: 'Spain'
+    },
+    {
+      id: 24,
       team: 'Belgium'
     }
   ])
@@ -114,15 +178,40 @@ export default function index() {
     setGroups(currentGroups)
   }
 
-  const totalFixtures = () => {
-    let fixtures = 0
+  const handleFirstChange = event => {
+    setFirstDecider(event.target.value)
+  }
 
-    for (let i = 0; i < groups.length; i++) {
-      let groupFixturesCount = (groups[i].teams.length * (groups[i].teams.length - 1)) / 2
-      fixtures += groupFixturesCount
-    }
+  const handleSecondChange = event => {
+    setSecondDecider(event.target.value)
+  }
 
-    return fixtures
+  const handleThirdChange = event => {
+    setThirdDecider(event.target.value)
+  }
+
+  const handleFirstClose = () => {
+    setOpenFirst(false)
+  }
+
+  const handleFirstOpen = () => {
+    setOpenFirst(true)
+  }
+
+  const handleSecondClose = () => {
+    setOpenSecond(false)
+  }
+
+  const handleSecondOpen = () => {
+    setOpenSecond(true)
+  }
+
+  const handleThirdClose = () => {
+    setOpenThird(false)
+  }
+
+  const handleThirdOpen = () => {
+    setOpenThird(true)
   }
 
   const handleRoundMatches = NoOfMatches => {
@@ -132,8 +221,8 @@ export default function index() {
 
   return (
     <>
-      <Grid container spacing={5} alignItems='stretch'>
-        <Grid item xs={12} md={4}>
+      <Grid container spacing={5} alignItems='stretch' sx={{ mt: 5 }}>
+        <Grid item xs={12} md={3}>
           <Card>
             <CardContent>
               <Grid item xs={12}>
@@ -167,7 +256,7 @@ export default function index() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <Card>
             <CardContent>
               <Grid item xs={12}>
@@ -178,7 +267,7 @@ export default function index() {
                     mb: 7
                   }}
                 >
-                  How many rounds of matches should there be in each group?
+                  How many times will teams play each other
                 </Typography>
               </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
@@ -195,7 +284,7 @@ export default function index() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={6}>
           <Card>
             <CardContent>
               <Grid item xs={12}>
@@ -206,17 +295,63 @@ export default function index() {
                     mb: 4
                   }}
                 >
-                  Group Stage Fixtures
+                  How should teams be ranked in groups
                 </Typography>
               </Grid>
-              <Typography
-                sx={{
-                  fontWeight: '800',
-                  fontSize: '2rem'
-                }}
+              <Select
+                labelId='demo-controlled-open-select-label'
+                id='demo-controlled-open-select'
+                open={openFirst}
+                onClose={handleFirstClose}
+                onOpen={handleFirstOpen}
+                value={firstDecider}
+                label='Age'
+                onChange={handleFirstChange}
               >
-                {totalFixtures() * groupRounds}
-              </Typography>
+                <MenuItem value={10} selected>
+                  Points
+                </MenuItem>
+                <MenuItem value={20}>Goal Difference</MenuItem>
+                <MenuItem value={30}>Goals scored</MenuItem>
+                <MenuItem value={40}>Head to Head</MenuItem>
+              </Select>{' '}
+              then{' '}
+              <Select
+                labelId='demo-controlled-open-select-label'
+                id='demo-controlled-open-select'
+                open={openSecond}
+                onClose={handleSecondClose}
+                onOpen={handleSecondOpen}
+                value={secondDecider}
+                label='Age'
+                onChange={handleSecondChange}
+              >
+                <MenuItem value={10} selected>
+                  Points
+                </MenuItem>
+                <MenuItem value={20}>Goal Difference</MenuItem>
+                <MenuItem value={30}>Goals scored</MenuItem>
+                <MenuItem value={40}>Head to Head</MenuItem>
+              </Select>{' '}
+              then{' '}
+              <Select
+                labelId='demo-controlled-open-select-label'
+                id='demo-controlled-open-select'
+                open={openThird}
+                onClose={handleThirdClose}
+                onOpen={handleThirdOpen}
+                value={thirdDecider}
+                label='Age'
+                onChange={handleThirdChange}
+              >
+                <MenuItem value={10} selected>
+                  Points
+                </MenuItem>
+                <MenuItem value={20}>Goal Diff</MenuItem>
+                <MenuItem value={30}>Goals scored</MenuItem>
+                <MenuItem value={40}>Head to Head</MenuItem>
+              </Select>
+              {'   '}then coin toss
             </CardContent>
           </Card>
         </Grid>
