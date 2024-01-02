@@ -150,7 +150,7 @@ export default function index() {
       </Grid>
       {filterTeams().map((team, index) => (
         <Grid key={index} item xs={2}>
-          <Link href='teams/England' style={{ textDecoration: 'none' }}>
+          <Link href='/cancun/teams/England' style={{ textDecoration: 'none' }}>
             <Card>
               <CardMedia sx={{ height: '8.375rem' }} image={team.image} />
               <CardContent sx={{ p: theme => `${theme.spacing(3, 5.25, 4)} !important` }}>
