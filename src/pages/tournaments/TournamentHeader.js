@@ -1,13 +1,11 @@
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Button from '@mui/material/Button'
-import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Icon from 'src/@core/components/icon'
 import Countdown from 'react-countdown'
 
-const FixtureHeader = () => {
+const TournamentHeader = ({ tournamentData }) => {
   const renderer = ({ days, hours, minutes, seconds }) => {
     return (
       <>
@@ -18,14 +16,6 @@ const FixtureHeader = () => {
 
   return (
     <Card>
-      <CardMedia
-        component='img'
-        alt='profile-header'
-        image='https://www.shutterstock.com/image-vector/vector-image-green-red-gradient-260nw-2165783953.jpg'
-        sx={{
-          height: { xs: 150, md: 250 }
-        }}
-      />
       <CardContent
         sx={{
           pt: 0,
@@ -79,4 +69,4 @@ const FixtureHeader = () => {
   )
 }
 
-export default FixtureHeader
+export default TournamentHeader

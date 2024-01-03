@@ -1,35 +1,14 @@
 const navigation = () => {
   return [
     {
-      title: 'Cancun 2024',
-      icon: 'mdi:trophy',
-      children: [
-        {
-          title: 'Teams',
-          path: '/cancun/teams'
-        },
-        {
-          title: 'Groups',
-          path: '/dnd'
-        },
-        {
-          title: 'Referees',
-          path: '#'
-        },
-        {
-          title: 'Fixtures',
-          path: '#'
-        },
-        {
-          title: 'Gallery & Videos',
-          path: '#'
-        }
-      ]
+      title: 'Dashboard',
+      path: '/',
+      icon: 'mdi:home-variant'
     },
     {
-      title: 'Dashboard',
-      path: '/home',
-      icon: 'mdi:home-variant'
+      title: 'Tournaments',
+      path: '/tournaments',
+      icon: 'mdi:tournament'
     },
     {
       title: 'Venues',
