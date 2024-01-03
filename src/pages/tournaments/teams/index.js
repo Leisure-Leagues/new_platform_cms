@@ -152,7 +152,7 @@ export default function index() {
         <Grid key={index} item xs={2}>
           <Link href='/cancun/teams/England' style={{ textDecoration: 'none' }}>
             <Card>
-              <CardMedia sx={{ height: '8.375rem' }} image={team.image} />
+              <CardMedia sx={{ height: '8.375rem' }} image={team.image} alt='Testing' />
               <CardContent sx={{ p: theme => `${theme.spacing(3, 5.25, 4)} !important` }}>
                 <Typography variant='h6' sx={{ mb: 2 }}>
                   {team.name}

@@ -1,13 +1,11 @@
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Button from '@mui/material/Button'
-import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Icon from 'src/@core/components/icon'
 import Countdown from 'react-countdown'
 
-const TournamentHeader = () => {
+const TournamentHeader = ({ tournamentData }) => {
   const renderer = ({ days, hours, minutes, seconds }) => {
     return (
       <>

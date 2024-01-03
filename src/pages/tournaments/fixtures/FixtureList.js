@@ -53,6 +53,9 @@ const FixtureList = ({ fixtures, date, group, sortBy }) => {
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <Typography variant='subtitle'>{fixture.group}</Typography>
                   <Typography variant='subtitle1'>{fixture.time}</Typography>
+                  <Typography variant='subtitle2' sx={{ color: 'blue', cursor: 'pointer' }}>
+                    Manage Fixture
+                  </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <Image
